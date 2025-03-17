@@ -17,6 +17,7 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"gopkg.in/natefinch/lumberjack.v2"
 )
 
 type Item struct {
@@ -51,7 +52,13 @@ var (
 			Buckets: prometheus.DefBuckets,
 		},
 	)
-	logger = slog.New(slog.NewJSONHandler(os.Stdout, nil))
+	logger = slog.New(slog.NewJSONHandler(&lumberjack.Logger{
+		Filename:   "/tmp/app/app.log",
+		MaxSize:    1, // megabytes
+		MaxBackups: 5,
+		MaxAge:     30, // days
+		Compress:   false,
+	}, nil))
 )
 
 func init() {

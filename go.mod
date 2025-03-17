@@ -7,6 +7,7 @@ require (
 	github.com/gorilla/mux v1.8.1
 	github.com/jackc/pgx/v5 v5.7.2
 	github.com/prometheus/client_golang v1.21.1
+	gopkg.in/natefinch/lumberjack.v2 v2.2.1
 )
 
 require (
